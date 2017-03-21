@@ -26,7 +26,6 @@ private:
         else if(num1<30){
             p2=palabras[21];
             p2+=palabras[num1%10];
-            int temp=num1%10;
         }
         else if(num1<40)decenas(23, num1%10);
         else if(num1<50)decenas(24, num1%10);
@@ -67,6 +66,10 @@ private:
     }
 
     void millon(){
+        if (num==0){
+            p1=palabras[43];
+            return;
+        }
         millar(num%1000000);
         p1=p3;
         if(num<2000000 && num>=1000000){
@@ -125,12 +128,13 @@ public:
         palabras.push_back("mil ");
         palabras.push_back("un millon ");
         palabras.push_back("millones ");
+        palabras.push_back("cero");
 
         num=num_;
-        if(num>0 && num<=999999999999)
+        if(num>=0 && num<=999999999999)
             millon();
         else
-            cout<<"ingrese un numero mayor a 0 y menor a 999 999 999 999"<< endl;
+            cout<<"ingrese un numero mayor igual a 0 y menor a 999 999 999 999"<< endl;
     }
 
     void imprimir(){
@@ -140,7 +144,7 @@ public:
 
 int main()
 {
-    LeerNumero num(999999999999);
+    LeerNumero num(0);
     num.imprimir();
     return 0;
 }
