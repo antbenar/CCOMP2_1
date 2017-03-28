@@ -28,13 +28,13 @@ private:
         if(num1<=20)
             p2=palabras[num1];
         else if(num1<30){
-            if(!val||num%10!=1){
+            if(val||num%10!=1){
                 p2=palabras[21];
-                p2+=palabras[num1%10];
+                p2+=palabras[22];
             }
             else{
                 p2=palabras[21];
-                p2+=palabras[22];
+                p2+=palabras[num1%10];
             }
         }
         else if(num1<40)decenas(23, num1%10,val);
@@ -63,13 +63,13 @@ private:
         }
     }
 
-    void millar(long long num1,bool val=true){
-        centenas(num1%1000,val);
+    void millar(long long num1){
+        centenas(num1%1000);
         p3=p2;
         if(num1<2000&&num1>=1000)
             p3.insert(0,palabras[40]);//Evitar el un mil, sino poner solo mil
         else if(num1>=2000){
-            centenas(num1/1000);
+            centenas(num1/1000,false);
             p3.insert(0,p2);//Estas son las tres cifras que estan antes del mil: 999 000
             p3.insert(p2.size(),palabras[40]);//"mil"
         }
@@ -80,7 +80,7 @@ private:
             p1=palabras[43];
             return;
         }
-        millar(num%1000000,false);
+        millar(num%1000000);
         p1=p3;
         if(num<2000000 && num>=1000000){
             p1.insert(0,palabras[41]);//"un millon"
@@ -154,7 +154,10 @@ public:
 
 int main()
 {
-    LeerNumero num(999999999999);//999 999 999 999
+    int a;
+    cout<< "Ingrese un numero: "<<endl;
+    cin>> a;
+    LeerNumero num(a);//999 999 999 999
     num.imprimir();
     return 0;
 }
