@@ -14,13 +14,19 @@ private:
 
     void decenas(int decena, int temp,bool val=true){//usado para dar nombre a los dos primeros numeros
         p2=palabras[decena];
-        if(temp!=0&&(!val||num%10!=1)){//val se usa como validador para evitar el uno mil
+        if(temp!=0&&val){//val se usa como validador para evitar el veintiuno mil,etc
+            if(temp==1){
+                p2+="y ";
+                p2+=palabras[22];
+            }
+            else{
+                p2+="y ";
+                p2+=palabras[temp];
+            }
+        }
+        else if(temp!=0){
             p2+="y ";
             p2+=palabras[temp];
-        }
-        else{
-            p2+="y ";
-            p2+=palabras[22];
         }
     }
 
@@ -28,7 +34,7 @@ private:
         if(num1<=20)
             p2=palabras[num1];
         else if(num1<30){
-            if(val||num%10!=1){
+            if(val&&num1%10==1){
                 p2=palabras[21];
                 p2+=palabras[22];
             }
@@ -63,13 +69,13 @@ private:
         }
     }
 
-    void millar(long long num1){
-        centenas(num1%1000);
+    void millar(long long num1,bool val=true){
+        centenas(num1%1000,val);
         p3=p2;
         if(num1<2000&&num1>=1000)
             p3.insert(0,palabras[40]);//Evitar el un mil, sino poner solo mil
         else if(num1>=2000){
-            centenas(num1/1000,false);
+            centenas(num1/1000);
             p3.insert(0,p2);//Estas son las tres cifras que estan antes del mil: 999 000
             p3.insert(p2.size(),palabras[40]);//"mil"
         }
@@ -80,7 +86,7 @@ private:
             p1=palabras[43];
             return;
         }
-        millar(num%1000000);
+        millar(num%1000000,false);
         p1=p3;
         if(num<2000000 && num>=1000000){
             p1.insert(0,palabras[41]);//"un millon"
